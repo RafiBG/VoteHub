@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "You voted";
+}
+
+
+<h2>You already voted!</h2>
+<p>Your vote is saved for name: <strong>@ViewBag.VotedCandidate.Name</strong></p>
+<p>And party: <strong>@ViewBag.VotedCandidate.Party</strong></p>
+<a href="@Url.Action("Index", "Home")">Go to main page</a>

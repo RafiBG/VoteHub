@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+@model IEnumerable<VoteHubBG.Models.Candidate>
+
+<h1>Party for voting</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Party</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var candidate in Model)
+        {
+            <tr>
+                <td>@candidate.Name</td>
+                <td>@candidate.Party</td>
+                <td>@candidate.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <p>Please login to be able to vote, if you don`t have profile go to register.</p>
+}
+@* else
+{
+    <p>Please login to be able to vote, if you don`t have profile go to register.</p>
+} *@

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<VoteHubBG.Models.Candidate>
+
+@{
+    ViewData["Title"] = "Vote";
+}
+
+
+<head>
+    <style>
+        .voted-message {
+            background-color: #f8f9fa;
+            border: 1px solid #e2e6ea;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .voted-message h2 {
+            color: #007bff;
+        }
+
+        .voted-message p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .vote-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .candidates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .candidates-table th, .candidates-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .candidates-table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .candidates-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .vote-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .vote-button:hover {
+            background-color: #218838;
+        }
+
+        .vote-form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    @if (ViewBag.VotedCandidate != null)
+    {
+        <div class="voted-message">
+            <h2>You already voted for:</h2>
+            <p><strong>@ViewBag.VotedCandidate.Name</strong></p>
+            <p><em>Party: @ViewBag.VotedCandidate.Party</em></p>
+            <p>@ViewBag.VotedCandidate.Description</p>
+        </div>
+    }
+    else
+    {
+        <h2 class="vote-title">Vote for party:</h2>
+        <table class="candidates-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidate in Model)
+                {
+                    <tr>
+                        <td>@candidate.Name</td>
+                        <td>@candidate.Party</td>
+                        <td>@candidate.Description</td>
+                        <td>
+                            <form method="post" action="@Url.Action("Vote", "Vote")" class="vote-form">
+                                <input type="hidden" name="candidateId" value="@candidate.Id" />
+                                <button type="submit" class="vote-button">Vote</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>
